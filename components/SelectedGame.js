@@ -31,12 +31,14 @@ class SelectedGame extends Component {
 
 	render() {
 		const { game, imageSrc } = this.state;
-		console.log(game);
+
+		// TODO: extract styles and wrap in flexbox
 		return(
 			<View style={{ flex: 1 }}>
-				<Title title={ game && game.name } />
-				<Image source={{ uri: `https://${imageSrc}` }} style={{ width: 50, height: 50 }}/>
-				<Text>
+				<Title title={ game && game.name } style={{ fontSize: 24, fontWeight: "bold", padding: 20, textAlign: "center" }}/>
+				<Image source={{ uri: `https://${imageSrc}` }} style={{ width: 100, height: 100 }}/>
+				<Text style={{ fontSize: 20, float: "right", textAlign: "center", position: "relative" }}>{ game && `Critic Score: ${game.aggregated_rating}` }</Text>
+				<Text style={{ fontSize: 16 }}>
 					{game &&  game.summary }
 				</Text>
 			</View>
