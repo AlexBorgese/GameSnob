@@ -10,38 +10,34 @@ import Title from './Title';
 class SelectedGame extends Component {
 	constructor() {
 		super();
-		this.state = { imageSrc: '', games: null };
+		this.state = { imageSrc: '', game: null };
 	}
 
 	componentDidMount() {
+		let game;
+
 		getGames().
-		  then(res => {
-			  this.setState({
-				games: res[0] // maybe do image here
-			  });
-			  console.log('legittt?', this.state.games.cover);
-			  getCoverImage(this.state.games.cover).
+			then(res => {
+				game = res[0];
+				getCoverImage(res[0].cover).
 				then(res => {
-				console.log('image!!!', res[0])
-				this.setState({
-					imageSrc: res[0].url.substr(2)
+					this.setState({
+						imageSrc: res[0].url.substr(2),
+						game
+					});
 				});
-				console.log(this.state.imageSrc)
 			});
-		  });
-
-
-	  }
+	}
 
 	render() {
-		const { games, imageSrc } = this.state;
-
+		const { game, imageSrc } = this.state;
+		console.log(game);
 		return(
 			<View style={{ flex: 1 }}>
-				<Title title={ games && games.name } />
+				<Title title={ game && game.name } />
 				<Image source={{ uri: `https://${imageSrc}` }} style={{ width: 50, height: 50 }}/>
 				<Text>
-					{games &&  games.summary }
+					{game &&  game.summary }
 				</Text>
 			</View>
 		);
